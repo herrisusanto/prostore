@@ -19,6 +19,7 @@ import {
   SheetTitle,
   SheetDescription,
 } from "./sheet";
+import { Card, CardHeader, CardContent, CardFooter, CardTitle } from "./card";
 
 export {
   Button,
@@ -38,4 +39,9 @@ export {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  CardTitle,
 };
