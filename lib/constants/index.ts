@@ -4,3 +4,18 @@ export const APP_DESCRIPTION =
   "A modern e-commerce store built with Next.js";
 export const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
+
+export const THEMES = [
+  {
+    label: "System",
+    value: "system",
+  },
+  {
+    label: "Light",
+    value: "light",
+  },
+  {
+    label: "Dark",
+    value: "dark",
+  },
+];
