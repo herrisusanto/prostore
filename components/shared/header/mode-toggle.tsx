@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui";
 import { SunIcon, MoonIcon, SunMoon } from "lucide-react";
 
 import { THEMES } from "@/lib/constants";
