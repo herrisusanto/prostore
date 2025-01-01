@@ -20,6 +20,7 @@ import {
   SheetDescription,
 } from "./sheet";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle } from "./card";
+import { Badge } from "./badge";
 
 export {
   Button,
@@ -44,4 +45,5 @@ export {
   CardContent,
   CardFooter,
   CardTitle,
+  Badge,
 };

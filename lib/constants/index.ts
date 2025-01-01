@@ -22,5 +22,3 @@ export const THEMES = [
 
 export const LATEST_PRODUCTS_LIMIT =
   Number(process.env.NEXT_PUBLIC_APP_LATEST_PRODUCTS_LIMIT) || 4;
-
-console.log(process.env.NEXT_PUBLIC_APP_SERVER_URL);
