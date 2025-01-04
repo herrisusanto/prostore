@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
+  DropdownMenuItem,
 } from "./dropdown-menu";
 import {
   Sheet,
@@ -40,6 +41,7 @@ export {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
+  DropdownMenuItem,
   Card,
   CardHeader,
   CardContent,
