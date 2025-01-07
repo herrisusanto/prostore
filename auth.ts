@@ -2,11 +2,10 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { compareSync } from "bcrypt-ts-edge";
 
 import { prisma } from "@/db/prisma";
-import { compareSync } from "bcrypt-ts-edge";
 
 export const config = {
   pages: {
