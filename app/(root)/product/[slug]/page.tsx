@@ -1,8 +1,13 @@
 import { notFound } from "next/navigation";
-import { Badge, Button, Card, CardContent } from "@/components/ui";
+import { Badge, Card, CardContent } from "@/components/ui";
 
 import { getProductBySlug } from "@/lib/actions/product.actions";
-import { ProductImages, ProductPrice } from "@/components/shared/product";
+import {
+  ProductImages,
+  ProductPrice,
+  AddToCart,
+} from "@/components/shared/product";
+import { getMyCart } from "@/lib/actions/cart.actions";
 
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;
@@ -12,6 +17,8 @@ const ProductDetailsPage = async (props: {
   if (!product) {
     return notFound();
   }
+
+  const cart = await getMyCart();
   return (
     <>
       <section>
@@ -59,7 +66,17 @@ const ProductDetailsPage = async (props: {
                 </div>
                 {product.stock > 0 && (
                   <div className="flex justify-center items-center">
-                    <Button className="w-full">Add To Cart</Button>
+                    <AddToCart
+                      cart={cart}
+                      item={{
+                        productId: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        qty: 1,
+                        image: product.images![0],
+                      }}
+                    />
                   </div>
                 )}
               </CardContent>
