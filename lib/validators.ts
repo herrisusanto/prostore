@@ -6,7 +6,7 @@ const currency = z
   .string()
   .refine(
     (value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))),
-    "Price mush have exactly two decimal places."
+    "Price mush have exactly two decimal places.",
   );
 
 // Schema for inserting products
@@ -82,3 +82,59 @@ export const paymentMethodSchema = z
     path: ["type"],
     message: "Invalid payment method",
   });
+
+//Schema for inserting Order
+export const insertOrderSchema = z.object({
+  userId: z.string().min(1, "User is required."),
+  itemsPrice: currency,
+  shippingPrice: currency,
+  taxPrice: currency,
+  totalPrice: currency,
+  paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+    message: "Invalid payment method",
+  }),
+  shippingAddress: shippingAddressSchema,
+});
+
+// Schema for inserting an order item
+export const insertOrderItemSchema = z.object({
+  productId: z.string(),
+  slug: z.string(),
+  image: z.string(),
+  name: z.string(),
+  price: currency,
+  qty: z.number(),
+});
+
+// Schema for updating the user profile
+export const updateProfileSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters!."),
+  email: z.string().min(3, "Email must be at least 3 characters!."),
+});
+
+//Schema for the PayPal payment result
+export const paymentResultSchema = z.object({
+  id: z.string(),
+  status: z.string(),
+  email_address: z.string(),
+  pricePaid: z.string(),
+});
+
+// Schema to update users
+export const updateUserSchema = updateProfileSchema.extend({
+  id: z.string().min(1, "ID is required"),
+  role: z.string().min(1, "Role is required"),
+});
+
+// Schema to insert reviews
+export const insertReviewSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters."),
+  description: z.string().min(3, "Description must be at least 3 characters"),
+  productId: z.string().min(1, "Product ID is required"),
+  userId: z.string().min(1, "User ID is required"),
+  rating: z.coerce
+    .number()
+    .int()
+    .min(1, "Rating must be at least 1")
+    .max(5, "Rating must at most 5"),
+});

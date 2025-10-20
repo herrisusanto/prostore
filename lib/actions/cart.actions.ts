@@ -13,7 +13,7 @@ import { cartItemSchema, insertCartSchema } from "../validators";
 // Calculate cart prices
 const calcPrice = (items: CartItem[]) => {
   const itemsPrice = round2(
-      items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)
+      items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0),
     ),
     shippingPrice = round2(itemsPrice > 100 ? 0 : 100),
     taxPrice = round2(0.15 * itemsPrice),
@@ -69,7 +69,7 @@ export async function addItemToCart(data: CartItem) {
     } else {
       // Check if item is already in cart
       const existItem = (cart.items as CartItem[]).find(
-        (x) => x.productId === item.productId
+        (x) => x.productId === item.productId,
       );
       if (existItem) {
         // Check stock
@@ -79,7 +79,7 @@ export async function addItemToCart(data: CartItem) {
 
         // Increase the quantity
         (cart.items as CartItem[]).find(
-          (x) => x.productId === item.productId
+          (x) => x.productId === item.productId,
         )!.qty = existItem.qty + 1;
       } else {
         // If item does not exist in cart
@@ -153,7 +153,7 @@ export async function removeItemFromCart(productId: string) {
 
     // Check for item
     const exist = (cart.items as CartItem[]).find(
-      (x) => x.productId === productId
+      (x) => x.productId === productId,
     );
     if (!exist) throw new Error("Item not found");
 
@@ -161,7 +161,7 @@ export async function removeItemFromCart(productId: string) {
     if (exist.qty === 1) {
       //Remove from cart
       cart.items = (cart.items as CartItem[]).filter(
-        (x) => x.productId != exist.productId
+        () => x.productId != exist.productId,
       );
     } else {
       //Decrease qty

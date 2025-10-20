@@ -48,3 +48,5 @@ export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
   : ["PayPal", "Stripe", "CashOnDeliver"];
 export const DEFAULT_PAYMENT_METHOD =
   process.env.DEFAULT_PAYMENT_METHOD || "PayPal";
+
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || "onboarding@resend.env";
