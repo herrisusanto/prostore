@@ -64,7 +64,7 @@ export async function createOrder() {
     // Create a transaction to create order and order items in database
     const insertOrderId = await prisma.$transaction(async (tx) => {
       // Create order
-      const insertedOrder = tx.order.create({ data: order });
+      const insertedOrder = await tx.order.create({ data: order });
       // Create order items from the cart items
       for (const item of cart.items as CartItem[]) {
         await tx.orderItem.create({
@@ -88,6 +88,7 @@ export async function createOrder() {
       });
       return insertedOrder.id;
     });
+
     if (!insertOrderId) throw new Error("Order not created.");
 
     return {

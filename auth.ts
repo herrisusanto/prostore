@@ -54,8 +54,8 @@ export const config = {
   callbacks: {
     ...authConfig.callbacks,
     async session({ session, user, trigger, token }) {
-      session.user.id = token.sub;
-      session.user.role = token.role;
+      session.user.id = token.sub || "";
+      session.user.role = token.role || "";
       session.user.name = token.name;
 
       if (trigger === "update") {
