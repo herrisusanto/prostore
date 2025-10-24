@@ -20,7 +20,14 @@ import {
   SheetTitle,
   SheetDescription,
 } from "./sheet";
-import { Card, CardHeader, CardContent, CardFooter, CardTitle } from "./card";
+import {
+  Card,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  CardTitle,
+} from "./card";
 import { Badge } from "./badge";
 
 export {
@@ -44,6 +51,7 @@ export {
   DropdownMenuItem,
   Card,
   CardHeader,
+  CardDescription,
   CardContent,
   CardFooter,
   CardTitle,
