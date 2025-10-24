@@ -72,9 +72,9 @@ const ReviewForm = ({
   };
 
   // Submit Form Handler
-  const onSubmit: SubmitHandler<z.infer<typeof insertReviewSchema>> = async ({
+  const onSubmit: SubmitHandler<z.infer<typeof insertReviewSchema>> = async (
     values,
-  }) => {
+  ) => {
     const res = await createUpdateReview({ ...values, productId });
     if (!res.success) {
       return toast({
@@ -157,10 +157,12 @@ const ReviewForm = ({
                               value={(index + 1).toString()}
                             >
                               {index + 1}{" "}
+                              <StarIcon className="inline h-4 w-4" />
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
+                      <FormMessage />
                     </FormItem>
                   );
                 }}
