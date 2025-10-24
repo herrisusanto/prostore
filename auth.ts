@@ -7,6 +7,7 @@ import { compareSync } from "bcrypt-ts-edge";
 
 import { prisma } from "@/db/prisma";
 import { cookies } from "next/headers";
+import { authConfig } from "./auth.config";
 
 export const config = {
   pages: {
@@ -26,6 +27,7 @@ export const config = {
       },
       async authorize(credentials) {
         if (credentials === null) return null;
+
         const user = await prisma.user.findFirst({
           where: {
             email: credentials.email as string,
@@ -34,7 +36,7 @@ export const config = {
         if (user && user.password) {
           const isMatch = compareSync(
             credentials.password as string,
-            user.password
+            user.password,
           );
           if (isMatch) {
             return {
@@ -50,7 +52,8 @@ export const config = {
     }),
   ],
   callbacks: {
-    async session({ session, user, trigger, token }: any) {
+    ...authConfig.callbacks,
+    async session({ session, user, trigger, token }) {
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;

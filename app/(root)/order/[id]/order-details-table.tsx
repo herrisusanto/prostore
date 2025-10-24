@@ -22,13 +22,13 @@ import {
 import { Button } from "@/components/ui";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
 import {
-  createOrder,
   approvePaypalOrder,
   updateOrderToPaidCOD,
   deliverOrder,
   createPaypalOrder,
 } from "@/lib/actions/order.actions";
 import { useToast } from "@/hooks/use-toast";
+import StripePayment from "./stripe-payment";
 
 const OrderDetailsTable = ({
   order,
@@ -247,8 +247,17 @@ const OrderDetailsTable = ({
 
           {/* Stripe Payment */}
           {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-            <StripePayment priceInCents={Number(order.totalPrice) * 100} />
+            <StripePayment
+              priceInCents={Number(order.totalPrice) * 100}
+              orderId={order.id}
+              clientSecret={stripeClientSecret}
+            />
           )}
+          {/* Cash on Delivery */}
+          {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
+            <MarkAsPaidButton />
+          )}
+          {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
         </CardContent>
       </Card>
     </>
