@@ -29,6 +29,7 @@ import {
   CardTitle,
 } from "./card";
 import { Badge } from "./badge";
+import { Textarea } from "./textarea";
 
 export {
   Button,
@@ -56,4 +57,5 @@ export {
   CardFooter,
   CardTitle,
   Badge,
+  Textarea,
 };
