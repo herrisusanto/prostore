@@ -13,10 +13,14 @@ export const paypal = {
       },
       body: JSON.stringify({
         intent: "CAPTURE",
-        purchase_units: {
-          currency_code: "USD",
-          value: price,
-        },
+        purchase_units: [
+          {
+            amount: {
+              currency_code: "USD",
+              value: price,
+            },
+          },
+        ],
       }),
     });
     return handleResponse(response);
@@ -53,7 +57,7 @@ async function generateAccessToken() {
   });
 
   const jsonData = await handleResponse(response);
-  return jsonData.accessToken;
+  return jsonData.access_token;
 }
 
 async function handleResponse(response: Response) {

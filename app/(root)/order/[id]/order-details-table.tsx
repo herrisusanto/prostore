@@ -72,7 +72,7 @@ const OrderDetailsTable = ({
   const handleCreatePayPalOrder = async () => {
     const res = await createPaypalOrder(order.id);
 
-    if (!res.status) {
+    if (!res.success) {
       toast({
         variant: "destructive",
         description: res.message,
