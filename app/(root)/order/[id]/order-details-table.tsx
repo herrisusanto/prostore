@@ -110,7 +110,7 @@ const OrderDetailsTable = ({
           })
         }
       >
-        {isPending ? "processing" : "Mark As Paid"}
+        {isPending ? "Processing" : "Mark As Paid"}
       </Button>
     );
   };
@@ -133,7 +133,7 @@ const OrderDetailsTable = ({
           })
         }
       >
-        {isPending ? "processing..." : "Mark As Delivered"}
+        {isPending ? "Processing..." : "Mark As Delivered"}
       </Button>
     );
   };
@@ -141,7 +141,7 @@ const OrderDetailsTable = ({
     <>
       <h1 className="py-4 text-2xl">Order {formatId(id)}</h1>
       <div className="grid md:grid-cols-3 md:gap-5">
-        <div className="col-span-2 space-4-y overflow-x-auto">
+        <div className="col-span-2 space-4-y overlow-x-auto">
           <Card>
             <CardContent className="p-4 gap-4">
               <h2 className="text-xl pb-4">Payment Method</h2>
@@ -151,7 +151,7 @@ const OrderDetailsTable = ({
                   Paid at {formatDateTime(paidAt!).dateTime}
                 </Badge>
               ) : (
-                <Badge variant="destructive">Not Paid</Badge>
+                <Badge variant="destructive">Not paid</Badge>
               )}
             </CardContent>
           </Card>
@@ -174,11 +174,11 @@ const OrderDetailsTable = ({
           </Card>
           <Card>
             <CardContent className="p-4 gap-4">
-              <h2 className="text-2xl pb-4">Order Items</h2>
+              <h2 className="text-xl pb-4">Order Items</h2>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Items</TableHead>
+                    <TableHead>Item</TableHead>
                     <TableHead>Quantity</TableHead>
                     <TableHead>Price</TableHead>
                   </TableRow>
@@ -213,53 +213,57 @@ const OrderDetailsTable = ({
             </CardContent>
           </Card>
         </div>
-      </div>
-      <Card>
-        <CardContent className="p-4 gap-4 space-y-4">
-          <div className="flex justify-between">
-            <div>Items</div>
-            <div>{formatCurrency(itemsPrice)}</div>
-          </div>
-          <div className="flex justify-between">
-            <div>Tax</div>
-            <div>{formatCurrency(taxPrice)}</div>
-          </div>
-          <div className="flex justify-between">
-            <div>Shipping</div>
-            <div>{formatCurrency(shippingPrice)}</div>
-          </div>
-          <div className="flex justify-between">
-            <div>Total</div>
-            <div>{formatCurrency(totalPrice)}</div>
-          </div>
-          {/* PayPal Payment */}
-          {!isPaid && paymentMethod === "PayPal" && (
-            <div>
-              <PayPalScriptProvider options={{ clientId: paypalClientId }}>
-                <PrintLoadingState />
-                <PayPalButtons
-                  createOrder={handleCreatePayPalOrder}
-                  onApprove={handleApprovePaypalOrder}
-                />
-              </PayPalScriptProvider>
-            </div>
-          )}
+        <div>
+          <Card>
+            <CardContent className="p-4 gap-4 space-y-4">
+              <div className="flex justify-between">
+                <div>Items</div>
+                <div>{formatCurrency(itemsPrice)}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Tax</div>
+                <div>{formatCurrency(taxPrice)}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Shipping</div>
+                <div>{formatCurrency(shippingPrice)}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Total</div>
+                <div>{formatCurrency(totalPrice)}</div>
+              </div>
 
-          {/* Stripe Payment */}
-          {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
-            <StripePayment
-              priceInCents={Number(order.totalPrice) * 100}
-              orderId={order.id}
-              clientSecret={stripeClientSecret}
-            />
-          )}
-          {/* Cash on Delivery */}
-          {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
-            <MarkAsPaidButton />
-          )}
-          {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
-        </CardContent>
-      </Card>
+              {/* PayPal Payment */}
+              {!isPaid && paymentMethod === "PayPal" && (
+                <div>
+                  <PayPalScriptProvider options={{ clientId: paypalClientId }}>
+                    <PrintLoadingState />
+                    <PayPalButtons
+                      createOrder={handleCreatePayPalOrder}
+                      onApprove={handleApprovePaypalOrder}
+                    />
+                  </PayPalScriptProvider>
+                </div>
+              )}
+
+              {/* Stripe Payment */}
+              {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
+                <StripePayment
+                  priceInCents={Number(order.totalPrice) * 100}
+                  orderId={order.id}
+                  clientSecret={stripeClientSecret}
+                />
+              )}
+
+              {/* Cash On Delivery */}
+              {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
+                <MarkAsPaidButton />
+              )}
+              {isAdmin && isPaid && !isDelivered && <MarkAsDeliveredButton />}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </>
   );
 };
