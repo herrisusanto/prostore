@@ -118,7 +118,7 @@ export async function getAllProducts({
 // Delete a product
 export async function deleteProduct(id: string) {
   try {
-    const productExists = await prisma.findFirst({
+    const productExists = await prisma.product.findFirst({
       where: { id },
     });
     if (!productExists) throw new Error("Product is not found.");
@@ -156,9 +156,9 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
 }
 
 // Update a product
-export async function updateProduct(data: z.infer<typeof updatepro>) {
+export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
   try {
-    const product = updateProductSchema(data);
+    const product = updateProductSchema.parse(data);
 
     const productExists = await prisma.product.findFirst({
       where: { id: product.id },

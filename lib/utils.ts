@@ -30,7 +30,6 @@ export async function formatError(error: any) {
     error.code === "P2002"
   ) {
     const field = error.meta?.target ? error.meta.target[0] : "Field";
-    console.log("Field", field);
     return `${field?.chartAt(0).toUpperCase() + field.slice(1)} already exists.`;
   } else {
     return typeof error.message === "string"
@@ -105,7 +104,7 @@ export const formatDateTime = (dateString: Date) => {
   );
   const formattedDate: string = new Date(dateString).toLocaleString(
     "en-US",
-    timeOptions,
+    dateOptions,
   );
   const formattedTime: string = new Date(dateString).toLocaleString(
     "en-US",
