@@ -1,8 +1,8 @@
 "use client";
-
 import { z } from "zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui";
 import {
@@ -15,11 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { updateProfileSchema } from "@/lib/validators";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { updateProfile } from "@/lib/actions/user.actions";
 
 const ProfileForm = () => {
   const { data: session, update } = useSession();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof updateProfileSchema>>({
     resolver: zodResolver(updateProfileSchema),
@@ -28,8 +28,6 @@ const ProfileForm = () => {
       email: session?.user?.email ?? "",
     },
   });
-
-  const { toast } = useToast();
 
   const onSubmit = async (values: z.infer<typeof updateProfileSchema>) => {
     const res = await updateProfile(values);
@@ -83,7 +81,6 @@ const ProfileForm = () => {
               <FormItem className="w-full">
                 <FormControl>
                   <Input
-                    disabled
                     placeholder="Name"
                     className="input-field"
                     {...field}

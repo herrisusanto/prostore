@@ -60,7 +60,10 @@ const OrdersPage = async (props: {
                     : "Not Delivered"}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/order/order.id`}>
+                  <Link
+                    href={`/order/${order.id}`}
+                    className="bg-green-100 p-2 rounded-md"
+                  >
                     <span className="px-2">Details</span>
                   </Link>
                 </TableCell>
@@ -69,10 +72,7 @@ const OrdersPage = async (props: {
           </TableBody>
         </Table>
         {orders.totalPages > 1 && (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={orders?.totalPages}
-          />
+          <Pagination page={+page || 1} totalPages={orders?.totalPages} />
         )}
       </div>
     </div>
