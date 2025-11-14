@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { APP_NAME } from "@/lib/constants";
 import MainNav from "./main-nav";
+import AdminSearch from "@/components/admin/admin-search";
+import Menu from "@/components/shared/header/menu";
 
 export default function AdminLayout({
   children,
@@ -25,7 +27,9 @@ export default function AdminLayout({
             <MainNav className="mx-6" />
             <div className="ml-auto items-center flex space-x-4">
               {/* Admin Search */}
+              <AdminSearch />
               {/* Menu */}
+              <Menu />
             </div>
           </div>
         </div>

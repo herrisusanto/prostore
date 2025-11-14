@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 const AdminOverviewPage = async () => {
   await requireAdmin();
   const summary = await getOrderSummary();
+  console.log("SUMMARY", summary);
   return (
     <div className="space-y-2">
       <h1 className="h2-bold">Dashboard</h1>
@@ -79,9 +80,13 @@ const AdminOverviewPage = async () => {
           <CardHeader>
             <CardTitle>Overview</CardTitle>
           </CardHeader>
-          <CardContent>
-            <Charts data={{ salesData: summary.salesData }} />
-          </CardContent>
+          {/* <CardContent> */}
+          {/*   <Charts */}
+          {/*     data={{ */}
+          {/*       salesData: summary.salesData, */}
+          {/*     }} */}
+          {/*   /> */}
+          {/* </CardContent> */}
         </Card>
         <Card className="col-span-3">
           <CardHeader>
