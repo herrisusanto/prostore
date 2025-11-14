@@ -53,6 +53,17 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Customers</CardTitle>
+            <Users />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {formatNumber(summary.usersCount)}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Products</CardTitle>
             <Barcode />
           </CardHeader>
@@ -97,7 +108,7 @@ const AdminOverviewPage = async () => {
                     </TableCell>
                     <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
                     <TableCell>
-                      <Link href={`/order/order.id`}>
+                      <Link href={`/order/${order.id}`}>
                         <span className="px-2">Details</span>
                       </Link>
                     </TableCell>
