@@ -65,26 +65,28 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
             </Section>
             <Section className="border border-solid border-gray-500 rounded-lg p-4 md:p-6 my-4">
               {order.orderItems.map((item) => {
-                <Row key={item.productId} className="mt-8">
-                  <Column className="w-20">
-                    <Img
-                      width="80"
-                      alt={item.name}
-                      className="rounded"
-                      src={
-                        item.image.startsWith("/")
-                          ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${item.image}`
-                          : item.image
-                      }
-                    />
-                  </Column>
-                  <Column className="align-top">
-                    {item.name} x {item.qty}
-                  </Column>
-                  <Column className="align-top" align="right">
-                    {formatCurrency(item.price)}
-                  </Column>
-                </Row>;
+                return (
+                  <Row key={item.productId} className="mt-8">
+                    <Column className="w-20">
+                      <Img
+                        width="80"
+                        alt={item.name}
+                        className="rounded"
+                        src={
+                          item.image.startsWith("/")
+                            ? `${process.env.NEXT_PUBLIC_SERVER_URL}/${item.image}`
+                            : item.image
+                        }
+                      />
+                    </Column>
+                    <Column className="align-top">
+                      {item.name} x {item.qty}
+                    </Column>
+                    <Column className="align-top" align="right">
+                      {formatCurrency(item.price)}
+                    </Column>
+                  </Row>
+                );
               })}
               {[
                 { name: "Item", price: order.itemsPrice },
@@ -95,7 +97,7 @@ export default function PurchaseReceiptEmail({ order }: OrderInformationProps) {
                 return (
                   <Row key={name} className="py-1">
                     <Column align="right">{name}</Column>
-                    <Column align="right" widht={70} className="align-top">
+                    <Column align="right" width={70} className="align-top">
                       <Text className="m-0">{formatCurrency(price)}</Text>
                     </Column>
                   </Row>
